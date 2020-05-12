@@ -1,4 +1,4 @@
-package main
+package pointers
 
 import "fmt"
 
@@ -7,7 +7,7 @@ type Foo struct {
 	Y int
 }
 
-func main() {
+func ExampleStruct() {
 
 	v := Foo{1, 2} // init the Foo Struct
 	p := &v        // p now points to v

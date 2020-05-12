@@ -1,15 +1,15 @@
-package main
+package arrays
 
 import "fmt"
 
 // learn more about the internals @ http://golang.org/doc/articles/slices_usage_and_internals.html
-func main() {
+func SliceExample() {
 	p := []int{2, 3, 5, 7, 11, 13}
 
 	fmt.Println("p is a slice of an int array with 6 elements == ", p)
 	fmt.Println("len == ", len(p))
 
-	fmt.Println("now we can \"re-slice\", creating a new slice value that pointer to the same array")
+	fmt.Println("now we can \"re-slice\", creating a new slice value pointer to the same array")
 	fmt.Println("p[1:4] ==", p[1:4])
 
 	fmt.Println("Now we will show a type of ALLOC called make")

@@ -1,4 +1,4 @@
-package main
+package arrays
 
 import "fmt"
 
@@ -8,7 +8,7 @@ type Vertex struct {
 
 var m map[string]Vertex
 
-func main() {
+func MapExample() {
 	m = make(map[string]Vertex)
 	m["Bell Labs"] = Vertex{40.64, -74.39}
 	fmt.Println(m["Bell Labs"])
