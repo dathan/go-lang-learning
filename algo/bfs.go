@@ -27,7 +27,7 @@ func bfs(start int, nodes map[int][]int, fn func(int)) {
 		next = []int{}
 		for _, node := range frontier {
 			visited[node] = true
-			fn(node)
+			fn(node) // recording the fact that the node was visited from the test
 			for _, n := range bfs_frontier(node, nodes, visited) {
 				next = append(next, n)
 			}
