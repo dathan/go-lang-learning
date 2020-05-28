@@ -2,6 +2,10 @@ package arrays
 
 import "fmt"
 
+/**
+ * Slices are just views of arrays
+ */
+
 // learn more about the internals @ http://golang.org/doc/articles/slices_usage_and_internals.html
 func SliceExample() {
 	p := []int{2, 3, 5, 7, 11, 13}
