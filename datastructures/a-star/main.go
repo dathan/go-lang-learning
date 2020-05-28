@@ -15,12 +15,12 @@ import (
 type Spot struct {
 	x         int64
 	y         int64
-	h         int64       // hueristic
-	g         int64       // cost
-	f         int64       // f(n) = g(n) + h(n) where g(n) is the cost and h(n) is the hueristic and n is the next node
-	wall      bool        // if this spot is blocked
-	neighbors []Spot      // neighbors to this spot alos have spots
-	previous  interface{} // TODO: Revisit
+	h         int64  // hueristic
+	g         int64  // cost
+	f         int64  // f(n) = g(n) + h(n) where g(n) is the cost and h(n) is the hueristic and n is the next node
+	wall      bool   // if this spot is blocked
+	neighbors []Spot // neighbors to this spot alos have spots
+	previous  []Spot // TODO: Revisit
 }
 
 //Globals
@@ -28,15 +28,22 @@ var rows int64 = 50
 var cols int64 = 50
 var spotWidth float64 = 0
 var spotHeight float64 = 0
-var start = 0
-var end = 0
+var start Spot
+var end Spot
+var openSet []Spot
+var closedSet []Spot
+
+//https://golang.org/ref/spec#Assignments
+// Addressable is a specific term in the Go language specification meaning whether an address can be accessed for an expression. You can only assign to addressable expressions. Currently map members are not addressable.
+// If you use a pointer instead then you can assign via pointer indirection.
+var gScore map[*Spot]int64 = make(map[*Spot]int64) // we have to use the pointer since Spot is not comparable.
 
 //matrix of spots
 var grid [][]Spot = make([][]Spot, rows) // this makes the 1st array
 
 // return a new spot
 func NewSpot(i, j int64) Spot {
-	fmt.Printf("NewSpot(%f,%f)\n", i, j)
+	//fmt.Printf("NewSpot(%f,%f)\n", i, j)
 	s := &Spot{}
 	s.x = i
 	s.y = j
@@ -129,9 +136,13 @@ func setup() {
 	spotWidth = float64(gop5js.CanvasWidth) / float64(cols)
 	spotHeight = float64(gop5js.CanvasHeight) / float64(rows)
 
+	start = grid[0][0]
+	end = grid[cols-1][rows-1]
+	openSet = append(openSet, start)
+
 }
 
-// this is called in a while loop
+// this is called in a while loop -- this will implement the while loop for the a-star
 func draw() {
 	gop5js.Background("127")
 
@@ -140,15 +151,28 @@ func draw() {
 			grid[i][j].Show("255")
 		}
 	}
-	//gop5js.NoLoop()
-	return
+	var winnerIndex int64 = 0
+	if len(openSet) != 0 {
+		// The psudocode: current := the node in openSet having the lowest fScore[] value
+		for i, _ := range openSet {
 
-	/* 	for i := 0; i < len(closedSet); i++ {
-	   		closedSet[i].Show("255,0,0")
-	   	}
+			if openSet[i].f < openSet[winnerIndex].f {
+				winnerIndex = int64(i)
+			}
+			// handle the tie case in our hueristic and pick the longer path since its closer to the goal.
+			if openSet[i].f == openSet[winnerIndex].f {
+				if openSet[i].g > openSet[winnerIndex].g {
+					winnerIndex = int64(i)
+				}
+			}
 
-	   	for i := 0; i < len(openSet); i++ {
-	   		openSet[i].Show("0, 255, 0")
-	   	}
-	*/
+		}
+
+		current := openSet[winnerIndex]
+		if current.x == end.x && current.y == end.y { // cannot compare structs in this case since all fields are not comparable.
+			fmt.Println("DONE")
+			return
+		}
+
+	}
 }
