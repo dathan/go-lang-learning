@@ -21,3 +21,5 @@ func Intersection(a, b []int) []int {
 	return c
 
 }
+
+// add Difference, Union, Distinct
