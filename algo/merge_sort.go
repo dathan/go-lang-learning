@@ -1,6 +1,7 @@
 package algo
 
 /*
+https://en.wikipedia.org/wiki/Merge_sort#Algorithm
 Conceptually, a merge sort works as follows:
 
 Divide the unsorted list into n sublists, each containing 1 element
