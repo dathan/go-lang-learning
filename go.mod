@@ -6,6 +6,7 @@ require (
 	github.com/as27/golib v0.0.0-20180403133952-ccfe4ab5e894 // indirect
 	github.com/as27/gop5js v0.1.1
 	github.com/bregydoc/PGoJs v0.0.0-20170302153243-853b2b0c5872 // indirect
+	github.com/davecgh/go-spew v1.1.1
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gopherjs/gopherjs v0.0.0-20200217142428-fce0ec30dd00 // indirect
