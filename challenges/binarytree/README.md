@@ -14,8 +14,8 @@ assert deserialize(serialize(node)).left.left.val == 'left.left'
 ```
 
 ## TODO
-* Create a binary tree
-* Create insertion of a binary tree
+* Create a binary tree ✅
+* Create insertion of a binary tree ✅
 * Create Serialization of binary Tree
 * Create Deserialization of a binary tree
 * Document, code complete.
