@@ -59,4 +59,9 @@ func TestSerializeDeserialize(t *testing.T) {
 	if trep.Search(9) != true {
 		t.Errorf("Failed")
 	}
+
+	if tree.Root.Left.Left.Data != trep.Root.Left.Left.Data {
+		t.Error("Not valid\n")
+		t.Fail()
+	}
 }
