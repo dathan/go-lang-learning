@@ -44,3 +44,19 @@ func TestBinaryTree(t *testing.T) {
 	t.Logf("%s", tree.String())
 
 }
+func TestSerializeDeserialize(t *testing.T) {
+
+	tree := internal.NewBinaryTree()
+	tree.Insert(8)
+	tree.Insert(4)
+	tree.Insert(3)
+	tree.Insert(10)
+	tree.Insert(11)
+	tree.Insert(9)
+
+	trep := internal.Deserialize(tree.Serialize())
+
+	if trep.Search(9) != true {
+		t.Errorf("Failed")
+	}
+}
