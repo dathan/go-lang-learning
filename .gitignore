@@ -1,3 +1,4 @@
 .*.sw*
 *.out
 datastructures/a-star/a-star
+vendor/

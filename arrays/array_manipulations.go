@@ -1,5 +1,11 @@
 package arrays
 
+// type itself []string
+/*
+func (h *itself) appendToItself(test string) {
+    *h = append(*h, test)
+}
+*/
 // given two lists of int arrays; a,b find the intersection of a and b
 func Intersection(a, b []int) []int {
 
