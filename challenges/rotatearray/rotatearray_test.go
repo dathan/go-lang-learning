@@ -1,7 +1,7 @@
 package challenge_test
 
 import (
-	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -40,35 +40,56 @@ k >= 0
 
 func TestRotateArray(t *testing.T) {
 
-	input := []int{1, 2, 3, 4, 5, 6, 7}
+	type args struct {
+		input    []int
+		rotateBy int
+	}
 
-	t.Logf("pre nums: %+v\n", input)
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{"rotateArray", args{input: []int{1, 2, 3, 4, 5, 6, 7}, rotateBy: 3}, []int{5, 6, 7, 1, 2, 3, 4}},
+		{"rotateArray", args{input: []int{1, 2, 3, 4, 5, 6, 7}, rotateBy: 4}, []int{4, 5, 6, 7, 1, 2, 3}},
+		{"rotateArray", args{input: []int{-1, -100, 3, 99}, rotateBy: 2}, []int{3, 99, -1, -100}},
+	}
 
-	rotateArray(input, 3)
+	for _, tt := range tests {
 
-	t.Logf("post nums: %+v\n", input)
+		t.Run(tt.name, func(t *testing.T) {
+			if rotateArray(&tt.args.input, tt.args.rotateBy); !reflect.DeepEqual(tt.args.input, tt.want) {
+				t.Errorf("rotateArray = %v, want %v\n", tt.args.input, tt.want)
+			}
+		})
+	}
+	/*
+		input := []int{1, 2, 3, 4, 5, 6, 7}
 
+		t.Logf("pre nums: %+v\n", input)
+
+		rotateArray(&input, 3)
+
+		t.Logf("post nums: %+v\n", input)
+	*/
 }
 
-//passing a slice
-func rotateArray(nums []int, k int) {
-	if k > len(nums)-1 {
+//passing a slice is passed by reference but append is making a copy thus operate on the value slice via a pointer of slices (which are just pointers "view" to an array) Space: O(N) + O(1)
+func rotateArray(nums *[]int, k int) { //TODO benchmark and track allocations
+
+	if k > len(*nums)-1 { // skip invalid loops
 		return
 	}
-	// traverse the array backwards
-	i := len(nums) - 1
-	count := 0
+
+	i := len(*nums) - 1
+
+	count := 0 // number of pops and unshits onto the array
 	for count < k {
 		// take off element at the end
-		arraySet := nums[i]
-		//fmt.Println(arraySet)
-		nums = append(nums[:i], nums[i+1:]...) // pops the item off
-		//fmt.Println(nums)
-		nums = append([]int{arraySet}, nums...) // array_unshift (prepends to an array)
-		//fmt.Println(nums)
+		arraySet := (*nums)[i]
+		*nums = append((*nums)[:i], (*nums)[i+1:]...) // pops the item off
+		*nums = append([]int{arraySet}, (*nums)...)   // array_unshift (prepends to an array)
 		count++
-
 	}
-	fmt.Println(nums)
 
 }
