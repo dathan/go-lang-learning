@@ -50,9 +50,29 @@ We can just append and pop as we go down the stack.
 
 func TestNQueen(t *testing.T) {
 	log.Println("Starting test")
+
+	var expectedResultsMap map[int]int = map[int]int{
+		0: 1,
+		1: 1,
+		2: 0,
+		3: 0,
+		4: 2,
+		5: 10,
+		6: 4,
+		7: 40,
+		8: 92,
+		9: 352,
+	}
+
 	for i := 0; i < 10; i++ {
 		board := []int{}
-		log.Printf("RESULTS[%d]: %d\n", i, n_queen(i, board))
+		r := n_queen(i, board)
+		if res, ok := expectedResultsMap[i]; !ok || res != r {
+			t.Fail()
+			t.Errorf("RESULTS[%d]: %d\n", i, r)
+			continue
+		}
+		log.Printf("RESULTS[%d]: %d\n", i, r)
 	}
 }
 
@@ -82,7 +102,7 @@ func n_queen(n int, board []int) int {
 // the 1d array represents a diag from 0,0 to N-1,N-1 (note len is the number of elements 1 based)
 func is_valid(board []int) bool {
 	current_row, current_col := len(board)-1, board[len(board)-1] // the row is the element, the array value is the col
-	//fmt.Printf("CURRENT ROW: %d CURRENT_COL: %d\n", current_row, current_col)
+	// Since the last element in the array is the current. We need to compare then 2nd to the last element going backwards.
 	for i := len(board) - 2; i >= 0; i-- { // DFS on single array. Looking up the diaganoal from the conext of the last element.
 		diff := abs((board[i] - current_col))
 		//fmt.Printf("ROW[%d] column-check: %d current-col: %d diff:%d\n", i, board[i], current_col, diff)
@@ -90,6 +110,7 @@ func is_valid(board []int) bool {
 			return false
 		}
 	}
+	// above computation is small since we are building the board as we evaluate.
 	return true
 }
 
