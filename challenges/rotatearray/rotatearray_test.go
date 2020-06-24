@@ -58,7 +58,7 @@ func TestRotateArray(t *testing.T) {
 	for _, tt := range tests {
 
 		t.Run(tt.name, func(t *testing.T) {
-			if rotateArray(&tt.args.input, tt.args.rotateBy); !reflect.DeepEqual(tt.args.input, tt.want) {
+			if rotateArraySameSpace(tt.args.input, tt.args.rotateBy); !reflect.DeepEqual(tt.args.input, tt.want) {
 				t.Errorf("rotateArray = %v, want %v\n", tt.args.input, tt.want)
 			}
 		})
@@ -92,4 +92,13 @@ func rotateArray(nums *[]int, k int) { //TODO benchmark and track allocations
 		count++
 	}
 
+}
+
+func rotateArraySameSpace(nums []int, k int) { // bruteforce same space
+	for i := 1; i <= k; i++ {
+		previous := nums[len(nums)-1]
+		for j := 1; j < len(nums); j++ {
+			nums[j], previous = previous, nums[j]
+		}
+	}
 }
