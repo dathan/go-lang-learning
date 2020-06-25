@@ -59,15 +59,15 @@ func findSignatures(students []int) []int {
 	var ans []int = make([]int, len(students))
 
 	for pos, _ := range students {
-		j := pos
+		csp := pos
 		ans[pos] = 1 // you can pass it to yourself so default 1
 		thisStudent := pos + 1
-		fmt.Printf("POS: %d STUDENT: %d PATH: %d\n", pos, thisStudent, students[j])
+		fmt.Printf("POS: %d STUDENT: %d PATH: %d\n", pos, thisStudent, students[csp])
 		// keep passing until this student gets the book back
-		for students[j] != thisStudent { // if you get your yearbook back
-			ans[pos]++          // increment the passes when looped
-			j = students[j] - 1 // array is zero based, they are passing it to student 1 based
-			fmt.Printf("\t J: %d  passed to student: %d\n", j, students[j])
+		for students[csp] != thisStudent { // if you get your yearbook back
+			ans[pos]++              // increment the passes when looped
+			csp = students[csp] - 1 // array is zero based, they are passing it to student 1 based
+			fmt.Printf("\t J: %d  passed to student: %d\n", csp, students[csp])
 		}
 	}
 
