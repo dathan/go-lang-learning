@@ -1,6 +1,8 @@
 package arrays
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
  * Slices are just views of arrays
@@ -31,12 +33,5 @@ func SliceExample() {
 
 	}
 
-	fmt.Println("We used the range operator to go through the array and return a key => value ordered by the array")
-
-	/**
-		 * note the equivlent of iterating through a map and just look at the values
-	   * e.g. foreach($data as $row) { }
-	   * is for _, value := range data { }
-	*/
-
+	fmt.Println("Some Slice operations")
 }
