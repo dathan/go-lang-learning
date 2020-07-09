@@ -20,7 +20,7 @@ to the goal state.
 */
 func bfs(start int, nodes map[int][]int, fn func(int)) {
 	frontier := []int{start}
-	visited := map[int]bool{}
+	visited := map[int]bool{} // a graph may have a cycle
 	next := []int{}
 
 	for 0 < len(frontier) {

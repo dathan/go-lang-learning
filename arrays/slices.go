@@ -6,6 +6,7 @@ import (
 
 /**
  * Slices are just views of arrays
+ * slice[low : high] e.g. start : length from index 0
  */
 
 // learn more about the internals @ http://golang.org/doc/articles/slices_usage_and_internals.html
