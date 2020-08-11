@@ -1,4 +1,4 @@
-package challenges_test
+package backtracing
 
 import (
 	"errors"
@@ -39,8 +39,11 @@ func get_itinerary(flights []SrcDst, current_path []string) []string {
 	}
 	last_stop := current_path[len(current_path)-1]
 	for i, path := range flights {
+		//i is the number of elements from 0
 		flights_minus_current := append([]SrcDst{}, flights[:i]...)
+		//from i+1 to the length of the array append
 		flights_minus_current = append(flights_minus_current, flights[i+1:]...)
+
 		current_path = append(current_path, path.dst)
 		if path.src == last_stop {
 			return get_itinerary(flights_minus_current, current_path)
